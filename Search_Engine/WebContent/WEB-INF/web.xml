@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+<welcome-file-list>
+    <welcome-file>LandingPage.html</welcome-file>
+</welcome-file-list>
+
+<servlet>
+	<servlet-name>db_search</servlet-name>
+	<servlet-class>web.RunQuery</servlet-class>
+</servlet>
+
+<servlet>
+	<servlet-name>multi_search</servlet-name>
+	<servlet-class>web.RunMultiQuery</servlet-class>
+</servlet>
+
+<servlet>
+	<servlet-name>ads_form</servlet-name>
+	<servlet-class>web.Adform</servlet-class>
+</servlet>
+
+<servlet>
+	<servlet-name>adRedirect</servlet-name>
+	<servlet-class>web.AdRedirect</servlet-class>
+</servlet>
+
+
+<servlet-mapping>
+	<servlet-name>db_search</servlet-name>
+	<url-pattern>/docsearch</url-pattern>
+	<url-pattern>/json</url-pattern>
+	<url-pattern>/imagesearch</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+	<servlet-name>multi_search</servlet-name>
+	<url-pattern>/multisearch</url-pattern>
+</servlet-mapping>
+
+
+
+<servlet-mapping>
+	<servlet-name>ads_form</servlet-name>
+	<url-pattern>/addingads</url-pattern>
+</servlet-mapping>
+
+<servlet-mapping>
+	<servlet-name>adRedirect</servlet-name>
+	<url-pattern>/red</url-pattern>
+</servlet-mapping>
+</web-app>

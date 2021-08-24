@@ -1,0 +1,100 @@
+steps to redeploy the vm 
+cd /usr/home/is
+sudo rm group-06 -rf
+sudo git clone https://git.cs.uni-kl.de/dbis/is-project-19/group-06.git
+git email
+git password
+cd /usr/home/is/group-06/Search_Engine
+sudo mvn compile
+sudo clean install
+sudo mvn exec:java -Dexec.mainClass=frontend.ResetDatabase -Dexec.args="localhost 5432 postgres postgres postgres"
+
+sudo mvn exec:java -Dexec.mainClass=frontend.WebCrawl -Dexec.args="localhost 5432 postgres postgres postgres 5 100"
+
+after that close the server 
+run on your machine the below:
+sudo mvn compile
+sudo clean install
+go the link 
+http://131.246.117.37:8080/manager/html
+username: postgres
+password: postgres
+undeploy the existing Search_Engine
+upload the war file after removing -1 from the name 
+
+
+.war file for apache tomcat can be found in Search_Engine/target after the build
+
+
+
+steps for configuring the virtualmachine
+To see the installed postgres
+https://chartio.com/resources/tutorials/how-to-view-which-postgres-version-is-running/
+
+Uninstall all packages of java
+https://askubuntu.com/questions/84483/how-to-completely-uninstall-java
+
+tar xzf apache-tomcat-9.0.30.tar.gz
+sudo mv apache-tomcat-9.0.30 /usr/local/apache-tomcat9
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+
+installation tomcat in below link 
+https://tecadmin.net/install-tomcat-9-on-ubuntu/
+wget http://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.30/bin/apache-tomcat-9.0.30.tar.gz
+echo "export JAVA_HOME="/usr/lib/jvm/java-13-oracle"" >> ~/.bashrc
+echo "export JRE_HOME="/usr/lib/jvm/java-13-oracle"" >> ~/.bashrc
+$ echo $JAVA_HOME
+/usr/lib/jvm/java-13-openjdk-amd64/bin/java
+
+
+add user to tomcat
+sudo nano /usr/local/apache-tomcat9/conf/tomcat-users.xml
+start tomcat service 
+cd /usr/local/apache-tomcat9/bin
+./startup.sh
+./shutdwon.sh
+
+install git
+
+sudo dnf install git-all
+
+git config --global user.name "i_barakat18"
+git config --global user.email "i_barakat18@cs.uni-kl.de"
+
+Installation of git on the machine 
+to genearate the ssh data 
+ssh-keygen -t ed25519 -C "i_barakat18@cs-uni-kl.de"
+if it is your first time to generate the key you can use the the default folder by clicking on enter 
+and then you can assign password however you can skip it by entering enter
+then you will git the private key and public key in hidden folder .ssh 
+git he key in publickey file copy it and go to users setting 
+from users setting you can find add ssh keygen paste there the new key 
+to test the if you are added successfully and to add the web to the required 
+ssh -T git@git.cs.uni-kl.de
+go to the folder where you want to download the files
+git clone git@git.cs.uni-kl.de:dbis/is-project-19/group-06.git
+
+the details to git you can find it below link
+https://docs.gitlab.com/ee/ssh/README.html
+
+vnc://is-VirtualBox.local
+b6:ca:b6:fd:43:ff:69:5f:33:12:7f:d0:25:b1:c9:79
+
+to alter user we do below
+$ sudo -u postgres 
+alter user postgres with encrypted password 'postgres';
+
+grant all privileges on database postgres to postgres;
+
+
+mvn exec:java -Dexec.mainClass=WebCrawl -Dexec.args="postgres postgres postgres 5 100" -X
+
+https://www.digitalocean.com/community/questions/how-to-access-tomcat-8-admin-gui-from-different-host
+https://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04
+https://git.cs.uni-kl.de/dbis/is-project-19/group-06
+https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html
+
+15 22 * * *  bin/sh /home/is/Documents/group-06/Search_Engine/runap.sh

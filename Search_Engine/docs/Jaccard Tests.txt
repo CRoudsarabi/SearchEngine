@@ -1,0 +1,53 @@
+minhash
+hash function MD5
+k=4
+noOfDocuments =826;
+(826*825)/2 = 340725 document pairs
+
+ERROR
+
+SELECT SUM(ABS((p.jaccard -m.jaccard))) as difference FROM pairwise_jaccard p JOIN mpairwise_jaccard m ON m.docid1=p.docid1 AND m.docid2=p.docid2
+
+Average
+n=1
+n=4    => "2882.212677796886"
+
+
+
+
+threshold 0.5
+1-minHash Jaccard = 9787
+4-minHash Jaccard = 4978
+16-minHash Jaccard = 2925
+32-minHash Jaccard = 3372
+brute force Jaccard = 3477
+
+threshold 0.8
+1-minHash Jaccard = 9787
+4-minHash Jaccard = 1900
+16-minHash Jaccard = 1873
+32-minHash Jaccard = 2088
+brute force Jaccard = 2228
+
+threshold 0.95
+1-minHash Jaccard = 9787
+4-minHash Jaccard = 1900
+16-minHash Jaccard = 1674
+32-minHash Jaccard = 1658
+brute force Jaccard = 1820
+
+threshold 1
+1-minHash Jaccard = 9787
+4-minHash Jaccard = 1900
+16-minHash Jaccard = 1674
+32-minHash Jaccard = 1658
+brute force Jaccard = 1804
+
+
+Old (Jaccard =1 and min-hash wrong)
+n=1         9787 
+n=4         1900
+n=16         1674
+n=32         1658
+
+brute force Jaccard = 1804

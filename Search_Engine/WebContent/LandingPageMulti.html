@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="css/admin.css">
+
+<style>
+div.wrapper {
+	width: 300px;
+	height: 300px;
+	border: 0px solid black;
+}
+
+input[type="text"] {
+	position: relative;
+	display: block;
+	margin: 0 auto;
+}
+</style>
+
+
+<title>Group 6 Search Engine</title>
+
+</head>
+<body>
+	<form name="Buttons" action="ChangeMode" method="get">
+		<a href="LandingPage.html" id="documents">Simple Search</a>&nbsp;
+		<a href="LandingPageImages.html" id="images"> Image Search</a>&nbsp;
+		<a href="addingads.html" id="ads">Add Ads</a>&nbsp;
+		<a href="config.html" id="config">Config</a>
+	</form>
+
+	<center>
+		<div class='wrapper'>
+			<img src="css/searchengines.jpg" class="user" style="width: 300px">
+			<form action="multisearch">
+				<input type="text" name="query"><br> <input
+					type="submit" value="Multi Search">
+			</form>
+
+
+
+
+		</div>
+	</center>
+</body>
+</html>

@@ -1,0 +1,50 @@
+CREATE OR REPLACE FUNCTION similar_documents (docid INT, threshold FLOAT)
+RETURNS TABLE (docid1 INT, docid2 INT,jaccard FLOAT)
+AS 'SELECT docid1,docid2,jaccard FROM pairwise_jaccard WHERE (docid1=$1 OR docid2=$1) AND jaccard > $2;'
+LANGUAGE SQL;
+
+SELECT shingles[0:3][0:4] FROM shingles;
+
+
+
+CREATE OR REPLACE FUNCTION public.reduce_dim(anyarray)
+RETURNS SETOF anyarray AS
+$function$
+DECLARE
+    s $1%TYPE;
+BEGIN
+    FOREACH s SLICE 1  IN ARRAY $1 LOOP
+        RETURN NEXT s;
+    END LOOP;
+    RETURN;
+END;
+$function$
+LANGUAGE plpgsql IMMUTABLE;
+
+CREATE TABLE pairwise_jaccard
+  AS 
+(SELECT 
+  a.docid AS docid1, 
+  b.docid  AS docid2,
+  (SELECT  COUNT(1) FROM (SELECT DISTINCT(reduce_dim) FROM reduce_dim(a.shingles)) AS auniques) AS acount,
+  (SELECT  COUNT(1) FROM  (SELECT DISTINCT(reduce_dim) FROM reduce_dim(a.shingles)) AS buniques) AS bcount,
+  (SELECT COUNT(1) FROM (SELECT * FROM reduce_dim(a.shingles) INTERSECT SELECT * FROM reduce_dim(b.shingles)) AS intersect_table) AS intersect_count,
+  (SELECT COUNT(1) FROM (SELECT * FROM reduce_dim(a.shingles) UNION SELECT * FROM reduce_dim(b.shingles)) AS union_table) AS union_count
+FROM shingles a
+JOIN shingles b
+ON a.docid < b.docid );
+
+ALTER TABLE pairwise_jaccard ADD jaccard FLOAT;
+
+UPDATE pairwise_jaccard SET jaccard = (intersect_count/union_count);
+SELECT * FROM pairwise_jaccard;
+
+DROP TABLE pairwise_jaccard;
+
+SELECT
+  a.docid AS docid1,  b.docid  AS docid2,
+  (SELECT  COUNT(1) FROM (SELECT DISTINCT(reduce_dim) FROM shingles_reduced WHERE docid=a.docid) AS auniques) AS acount,
+  (SELECT  COUNT(1) FROM  (SELECT DISTINCT(reduce_dim) FROM shingles_reduced WHERE docid=b.docid) AS buniques) AS bcount,
+  (SELECT COUNT(1) FROM (SELECT * FROM shingles_reduced WHERE docid=a.docid INTERSECT SELECT * FROM shingles_reduced WHERE docid=b.docid) AS intersect_table) AS intersect_count,
+  (SELECT COUNT(1) FROM (SELECT * FROM shingles_reduced WHERE docid=a.docid UNION SELECT * FROM shingles_reduced WHERE docid=b.docid) AS union_table) AS union_count
+					FROM shingles a JOIN shingles b ON a.docid < b.docid

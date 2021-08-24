@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+</style>
+<title>ad adds</title>
+</head>
+<body>
+	<div class="adform">
+		<div class="adform" id="f">
+			<center>
+				<img src="css/ads.jpg" class=user "  style="width: 100px" />
+				<h2>insert new ad</h2>
+				<form class="ad-form" action="addingads" method="post">
+					<label for="term">term :</label>          
+					<input type="text" name="term" placeholder="insert the term"><br>
+					<label for="Company">Company : </label>      
+					<input type="text" name="company"><br>
+					<label for="link">link :</label>          
+					<input type="text" name="url"><br>
+				    <label for="Addescription">Ad description :</label>
+				    <input type="text" name="description"><br>
+					<label for="budget">Budget : </label>      
+					<input type="text" name="budget" ><br>
+					<label for="costperclick">Cost per click  </label>
+					<input type="text" name="costperclick" ><br>
+					<label for="imageLink">Image Link:  </label>   
+					<input type="text" name="imageLink" ><br>
+					<input type="submit" value="Insert ad" >
+				</form>
+			</center>
+		</div>
+
+	</div>
+
+</body>
+</html>
