@@ -1,5 +1,5 @@
 ## Authors
-Ibraheem Barakat 
+Ibraheem Barakat and
 Constantin Roudsarabi
 
 ## Your Project Name Here
